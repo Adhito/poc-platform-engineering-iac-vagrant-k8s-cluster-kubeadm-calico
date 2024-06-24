@@ -29,6 +29,13 @@ Vagrant.configure("2") do |config|
     config.vm.define "devkubemaster01" do |controlplane|
       controlplane.vm.hostname = "devkubemaster01"
       controlplane.vm.network "private_network", ip: settings["network"]["control_ip"]
+
+    ## Openforwarded port toward host machine so host can accesss it 
+    ## Port 300001 : Kubernetes Dashboard
+    ## Port 320000 : Sample NGINX Deployment
+    controlplane.vm.network "forwarded_port", guest: 30001, host: 30001   
+    controlplane.vm.network "forwarded_port", guest: 32000, host: 32000
+    
       if settings["shared_folders"]
         settings["shared_folders"].each do |shared_folder|
           controlplane.vm.synced_folder shared_folder["host_path"], shared_folder["vm_path"]
