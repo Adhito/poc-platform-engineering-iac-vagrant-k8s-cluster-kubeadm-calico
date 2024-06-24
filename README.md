@@ -2,5 +2,4 @@
 Provision Kubernetes Cluster (K8S) systematically using Infrastructure as a Code (Vagrant) instead provisioning it manually.
 
 
-#test-ssh-link-#1
-#test-ssh-link-#2
+
