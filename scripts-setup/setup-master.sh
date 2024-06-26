@@ -3,7 +3,7 @@
 
 
 ## Stage : Setup for Control Plane (Master) servers
-# Variable that needed to be passed $CONTROL_IP, $CONTROL_IP, $POD_CIDR, $SERVICE_CIDR, $NODENAME
+# Variable that needed to be passed = $CONTROL_IP, $CONTROL_IP, $POD_CIDR, $SERVICE_CIDR, $NODENAME
 
 set -euxo pipefail
 
@@ -40,3 +40,18 @@ touch $config_path/setup-join.sh
 chmod +x $config_path/setup-join.sh
 
 kubeadm token create --print-join-command > $config_path/setup-join.sh
+
+
+# Stage : Install & Apply Calico Network Plugin
+# Variable that needed to be passed = ${CALICO_VERSION}
+
+curl https://raw.githubusercontent.com/projectcalico/calico/v${CALICO_VERSION}/manifests/calico.yaml -O
+
+kubectl apply -f calico.yaml
+
+sudo -i -u vagrant bash << EOF
+whoami
+mkdir -p /home/vagrant/.kube
+sudo cp -i $config_path/config /home/vagrant/.kube/
+sudo chown 1000:1000 /home/vagrant/.kube/config
+EOF
