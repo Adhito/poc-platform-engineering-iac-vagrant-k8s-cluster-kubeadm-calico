@@ -42,7 +42,7 @@ chmod +x $config_path/setup-join.sh
 kubeadm token create --print-join-command > $config_path/setup-join.sh
 
 
-# Stage : Install & Apply Calico Network Plugin
+## Stage : Install & Apply Calico Network Plugin
 # Variable that needed to be passed = ${CALICO_VERSION}
 
 curl https://raw.githubusercontent.com/projectcalico/calico/v${CALICO_VERSION}/manifests/calico.yaml -O
@@ -55,3 +55,9 @@ mkdir -p /home/vagrant/.kube
 sudo cp -i $config_path/config /home/vagrant/.kube/
 sudo chown 1000:1000 /home/vagrant/.kube/config
 EOF
+
+
+## Stage : Install & Apply Metrics Server
+# Variable that needed to be passed = 
+
+kubectl apply -f https://raw.githubusercontent.com/techiescamp/kubeadm-scripts/main/manifests/metrics-server.yaml
