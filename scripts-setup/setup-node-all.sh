@@ -34,3 +34,15 @@ EOF
 
 sudo modprobe overlay
 sudo modprobe br_netfilter
+
+
+## Configuration For IP Tables sysctl params Required By Steup & Persist After Reboots
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+
+## Restart & Apply sysctl params Without Reboot
+sudo sysctl --system
