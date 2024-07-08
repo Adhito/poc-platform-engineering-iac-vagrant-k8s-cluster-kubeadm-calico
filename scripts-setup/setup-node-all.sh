@@ -20,7 +20,17 @@ EOF
 sudo systemctl restart systemd-resolved
 
 
-# Configuration To Disable Swap & Persist After Reboot 
+## Configuration To Disable Swap & Persist After Reboot 
 sudo swapoff -a
 (crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | crontab - || true
 sudo apt-get update -y
+
+
+## Configuration For The .conf File To Load The Modules At Bootup
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
