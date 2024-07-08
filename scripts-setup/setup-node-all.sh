@@ -1,5 +1,5 @@
 #!/bin/bash
-# Shell Script Setup for All VM (VM Control Plane and VM Worker Nodes)
+# Shell Script Setup for All Nodes (Control Plane Node and Worker Node)
 
 
 ## Set End the script immediately if any command or pipe exits with a non-zero status.
