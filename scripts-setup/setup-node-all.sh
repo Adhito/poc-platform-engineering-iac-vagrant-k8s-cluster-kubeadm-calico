@@ -20,3 +20,7 @@ EOF
 sudo systemctl restart systemd-resolved
 
 
+# Configuration To Disable Swap & Persist After Reboot 
+sudo swapoff -a
+(crontab -l 2>/dev/null; echo "@reboot /sbin/swapoff -a") | crontab - || true
+sudo apt-get update -y
