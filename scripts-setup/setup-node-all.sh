@@ -46,3 +46,31 @@ EOF
 
 ## Restart & Apply sysctl params Without Reboot
 sudo sysctl --system
+
+
+## Configuration To Install CRI-O Container Runtime
+sudo apt-get update -y
+apt-get install -y software-properties-common curl apt-transport-https ca-certificates
+
+curl -fsSL https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/deb/Release.key |
+    gpg --dearmor -o /etc/apt/keyrings/cri-o-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/cri-o-apt-keyring.gpg] https://pkgs.k8s.io/addons:/cri-o:/prerelease:/main/deb/ /" |
+    tee /etc/apt/sources.list.d/cri-o.list
+
+sudo apt-get update -y
+sudo apt-get install -y cri-o
+
+sudo systemctl daemon-reload
+sudo systemctl enable crio --now
+sudo systemctl start crio.service
+
+echo "Stage : CRI-O runtime installed successfully"
+
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v$KUBERNETES_VERSION_SHORT/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v$KUBERNETES_VERSION_SHORT/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt-get update -y
+sudo apt-get install -y kubelet="$KUBERNETES_VERSION" kubectl="$KUBERNETES_VERSION" kubeadm="$KUBERNETES_VERSION"
+sudo apt-get update -y
+sudo apt-get install -y jq
