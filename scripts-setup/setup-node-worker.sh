@@ -10,5 +10,16 @@ set -euxo pipefail
 config_path="/vagrant/configs"
 
 
-## Set Kubeadm Join Command
+## Set & Trigger Kubeadm Join Command
 /bin/bash $config_path/setup-join.sh -v
+
+
+## Set Node Label and Configuration for config.yaml file into kube config path 
+sudo -i -u vagrant bash << EOF
+whoami
+mkdir -p /home/vagrant/.kube
+sudo cp -i $config_path/config /home/vagrant/.kube/
+sudo chown 1000:1000 /home/vagrant/.kube/config
+NODENAME=$(hostname -s)
+kubectl label node $(hostname -s) node-role.kubernetes.io/worker=worker
+EOF
