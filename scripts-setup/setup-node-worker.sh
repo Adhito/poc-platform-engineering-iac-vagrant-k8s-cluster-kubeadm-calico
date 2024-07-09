@@ -8,3 +8,7 @@ set -euxo pipefail
 
 ## Set Configuration Path
 config_path="/vagrant/configs"
+
+
+## Set Kubeadm Join Command
+/bin/bash $config_path/setup-join.sh -v
