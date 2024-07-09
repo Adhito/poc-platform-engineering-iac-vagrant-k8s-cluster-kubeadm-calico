@@ -58,7 +58,7 @@ Vagrant.configure("2") do |config|
         "KUBERNETES_VERSION_SHORT" => settings["software"]["kubernetes"][0..3],
         "OS" => settings["software"]["os"]
       },
-      path: "scripts/common.sh"
+      path: "scripts-setup/setup-node-all.sh"
     controlplane.vm.provision "shell",
       env: {
         "CALICO_VERSION" => settings["software"]["calico"],
@@ -66,5 +66,5 @@ Vagrant.configure("2") do |config|
         "POD_CIDR" => settings["network"]["pod_cidr"],
         "SERVICE_CIDR" => settings["network"]["service_cidr"]
       },
-      path: "scripts/master.sh"
+      path: "scripts-setup/setup-node-control-plane.sh"
   end
