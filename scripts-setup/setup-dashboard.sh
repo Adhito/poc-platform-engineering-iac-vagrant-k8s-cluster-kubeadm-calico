@@ -69,3 +69,18 @@ subjects:
   name: admin-user
   namespace: kubernetes-dashboard
 EOF
+
+
+## Stage : Deploying The Dashboard & Print Out Token
+# Apply aio/deploy dashboard & print out token
+  echo "Stage : Deploying the dashboard..."
+  sudo -i -u vagrant kubectl apply -f "https://raw.githubusercontent.com/kubernetes/dashboard/v${DASHBOARD_VERSION}/aio/deploy/recommended.yaml"
+
+  sudo -i -u vagrant kubectl -n kubernetes-dashboard get secret/admin-user -o go-template="{{.data.token | base64decode}}" >> "${config_path}/token"
+  echo "The following token was also saved to: configs/token"
+  cat "${config_path}/token"
+  echo "
+Use it to log in at:
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/overview?namespace=kubernetes-dashboard
+"
+fi
