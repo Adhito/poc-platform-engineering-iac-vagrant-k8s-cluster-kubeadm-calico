@@ -98,3 +98,12 @@ Vagrant.configure("2") do |config|
         },
         path: "scripts/setup-node-all.sh"
       node.vm.provision "shell", path: "scripts/setup-node-worker.sh"
+
+      ## Trigger the dashboard shell script after provisioning the last worker (and when enabled).
+      if i == NUM_WORKER_NODES and settings["software"]["dashboard"] and settings["software"]["dashboard"] != ""
+        node.vm.provision "shell", path: "scripts/setup-dashboard.sh"
+      end
+    end
+
+  end
+end 
