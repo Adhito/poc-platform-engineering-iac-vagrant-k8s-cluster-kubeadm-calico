@@ -68,3 +68,42 @@ Vagrant.configure("2") do |config|
       },
       path: "scripts-setup/setup-node-control-plane.sh"
   end
+
+
+  (1..NUM_WORKER_NODES).each do |i|
+
+    config.vm.define "devkubeworker0#{i}" do |node|
+      node.vm.hostname = "devkubeworker0#{i}"
+      node.vm.network "private_network", ip: IP_NW + "#{IP_START + i}"
+      if settings["shared_folders"]
+        settings["shared_folders"].each do |shared_folder|
+          node.vm.synced_folder shared_folder["host_path"], shared_folder["vm_path"]
+        end
+      end
+      node.vm.provider "virtualbox" do |vb|
+          vb.name = "DEVKUBEWORKER0#{i}"
+          vb.cpus = settings["nodes"]["workers"]["cpu"]
+          vb.memory = settings["nodes"]["workers"]["memory"]
+          if settings["cluster_name"] and settings["cluster_name"] != ""
+            vb.customize ["modifyvm", :id, "--groups", ("/" + settings["cluster_name"])]
+          end
+      end
+      node.vm.provision "shell",
+        env: {
+          "DNS_SERVERS" => settings["network"]["dns_servers"].join(" "),
+          "ENVIRONMENT" => settings["environment"],
+          "KUBERNETES_VERSION" => settings["software"]["kubernetes"],
+          "KUBERNETES_VERSION_SHORT" => settings["software"]["kubernetes"][0..3],
+          "OS" => settings["software"]["os"]
+        },
+        path: "scripts/setup-node-all.sh"
+      node.vm.provision "shell", path: "scripts/setup-node-worker.sh"
+
+      ## Trigger the dashboard shell script after provisioning the last worker (and when enabled).
+      if i == NUM_WORKER_NODES and settings["software"]["dashboard"] and settings["software"]["dashboard"] != ""
+        node.vm.provision "shell", path: "scripts/setup-dashboard.sh"
+      end
+    end
+
+  end
+end 
