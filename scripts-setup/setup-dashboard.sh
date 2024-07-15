@@ -6,3 +6,6 @@
 
 ## Set End the script immediately if any command or pipe exits with a non-zero status.
 set -euxo pipefail
+
+## Set Config Path
+config_path="/vagrant/configs"
