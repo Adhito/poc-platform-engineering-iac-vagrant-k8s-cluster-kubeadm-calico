@@ -26,3 +26,14 @@ if [ -n "${DASHBOARD_VERSION}" ]; then
   sudo -i -u vagrant kubectl create namespace kubernetes-dashboard
 
   echo "Stage : Creating the dashboard user..."
+
+
+## Stage : Create Kubernetes Namespace & Kind 
+# Apply ServiceAccount
+    cat <<EOF | sudo -i -u vagrant kubectl apply -f -
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+EOF
