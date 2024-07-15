@@ -37,3 +37,17 @@ metadata:
   name: admin-user
   namespace: kubernetes-dashboard
 EOF
+
+
+## Stage : Create Kubernetes Namespace & Kind 
+# Apply Secret
+  cat <<EOF | sudo -i -u vagrant kubectl apply -f -
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/service-account-token
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+  annotations:
+    kubernetes.io/service-account.name: admin-user
+EOF
