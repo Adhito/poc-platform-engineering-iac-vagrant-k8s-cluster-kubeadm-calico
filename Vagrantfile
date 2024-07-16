@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   config.vm.boot_timeout = 600
   config.vm.provision "shell", env: { "IP_NW" => IP_NW, "IP_START" => IP_START, "NUM_WORKER_NODES" => NUM_WORKER_NODES }, inline: <<-SHELL
       apt-get update -y
-      echo "$IP_NW$((IP_START)) devkubemaster01" >> /etc/hosts
+      echo "$IP_NW$((IP_START)) devnodemaster01" >> /etc/hosts
       for i in `seq 1 ${NUM_WORKER_NODES}`; do
         echo "$IP_NW$((IP_START+i)) node0${i}" >> /etc/hosts
       done
@@ -27,8 +27,8 @@ Vagrant.configure("2") do |config|
   end
   config.vm.box_check_update = true
 
-  config.vm.define "devkubemaster01" do |controlplane|
-    controlplane.vm.hostname = "devkubemaster01"
+  config.vm.define "devnodemaster01" do |controlplane|
+    controlplane.vm.hostname = "devnodemaster01"
     controlplane.vm.network "private_network", ip: settings["network"]["control_ip"]
       
     ## Openforwarded port toward host machine so host can accesss it 
@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
       end
     end
     controlplane.vm.provider "virtualbox" do |vb|
-        vb.name = "DEVKUBEMASTER01"
+        vb.name = "DEVNODEMASTER01"
         vb.cpus = settings["nodes"]["control"]["cpu"]
         vb.memory = settings["nodes"]["control"]["memory"]
         if settings["cluster_name"] and settings["cluster_name"] != ""
@@ -72,8 +72,8 @@ Vagrant.configure("2") do |config|
 
   (1..NUM_WORKER_NODES).each do |i|
 
-    config.vm.define "devkubeworker0#{i}" do |node|
-      node.vm.hostname = "devkubeworker0#{i}"
+    config.vm.define "devnodeworker0#{i}" do |node|
+      node.vm.hostname = "devnodeworker0#{i}"
       node.vm.network "private_network", ip: IP_NW + "#{IP_START + i}"
       if settings["shared_folders"]
         settings["shared_folders"].each do |shared_folder|
@@ -81,7 +81,7 @@ Vagrant.configure("2") do |config|
         end
       end
       node.vm.provider "virtualbox" do |vb|
-          vb.name = "DEVKUBEWORKER0#{i}"
+          vb.name = "DEVNODEWORKER0#{i}"
           vb.cpus = settings["nodes"]["workers"]["cpu"]
           vb.memory = settings["nodes"]["workers"]["memory"]
           if settings["cluster_name"] and settings["cluster_name"] != ""
@@ -96,12 +96,12 @@ Vagrant.configure("2") do |config|
           "KUBERNETES_VERSION_SHORT" => settings["software"]["kubernetes"][0..3],
           "OS" => settings["software"]["os"]
         },
-        path: "scripts/setup-node-all.sh"
-      node.vm.provision "shell", path: "scripts/setup-node-worker.sh"
+        path: "scripts-setup/setup-node-all.sh"
+      node.vm.provision "shell", path: "scripts-setup/setup-node-worker.sh"
 
       ## Trigger the dashboard shell script after provisioning the last worker (and when enabled).
       if i == NUM_WORKER_NODES and settings["software"]["dashboard"] and settings["software"]["dashboard"] != ""
-        node.vm.provision "shell", path: "scripts/setup-dashboard.sh"
+        node.vm.provision "shell", path: "scripts-setup/setup-dashboard.sh"
       end
     end
 
