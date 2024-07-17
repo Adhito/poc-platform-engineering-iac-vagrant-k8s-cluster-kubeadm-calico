@@ -80,3 +80,12 @@ echo "Stage : Configuration To Install CRI-O Container Runtime"
 ## Stage : Configuration To Disable auto-update services
 ## Hold version for kubelet, kubectl, kubeadm & CRI-O
 sudo apt-mark hold kubelet kubectl kubeadm cri-o
+
+
+## Stage : Configuration Set Local IP
+## Set local ip on all kubeneretes node-control-plane & node-worker
+local_ip="$(ip --json a s | jq -r '.[] | if .ifname == "eth1" then .addr_info[] | if .family == "inet" then .local else empty end else empty end')"
+cat > /etc/default/kubelet << EOF
+KUBELET_EXTRA_ARGS=--node-ip=$local_ip
+${ENVIRONMENT}
+EOF
