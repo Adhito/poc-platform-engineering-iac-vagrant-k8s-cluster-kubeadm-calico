@@ -75,3 +75,8 @@ sudo apt-get install -y kubelet="$KUBERNETES_VERSION" kubectl="$KUBERNETES_VERSI
 sudo apt-get update -y
 sudo apt-get install -y jq
 echo "Stage : Configuration To Install CRI-O Container Runtime"
+
+
+## Stage : Configuration To Disable auto-update services
+## Hold version for kubelet, kubectl, kubeadm & CRI-O
+sudo apt-mark hold kubelet kubectl kubeadm cri-o
