@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
 
 
   (1..NUM_WORKER_NODES).each do |i|
-
+    config.vm.boot_timeout = 600
     config.vm.define "devnodeworker0#{i}" do |node|
       node.vm.hostname = "devnodeworker0#{i}"
       node.vm.network "private_network", ip: IP_NW + "#{IP_START + i}"
