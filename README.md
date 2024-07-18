@@ -5,7 +5,7 @@ Provision Kubernetes Cluster (K8S) systematically using Infrastructure as a Code
 Clone the repo and execute the following commands.
 
 ```shell
-git clone https://github.com/Adhito/project-platform-engineering-iac-vagrant-k8s-cluster
+git clone https://github.com/Adhito/poc-platform-engineering-iac-vagrant-k8s-cluster
 cd project-platform-engineering-iac-vagrant-k8s-cluster
 vagrant up
 ```
