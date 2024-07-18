@@ -32,10 +32,18 @@ Vagrant.configure("2") do |config|
     controlplane.vm.network "private_network", ip: settings["network"]["control_ip"]
       
     ## Openforwarded port toward host machine so host can accesss it 
-    ## Port 300001 : Kubernetes Dashboard
+    ## Port 300001 : Kubernetes Dashboard UI
+    ## Port 300002 : Kubernetes ArgoCD UI
     ## Port 320000 : Sample NGINX Deployment
-    controlplane.vm.network "forwarded_port", guest: 30001, host: 30001   
+    controlplane.vm.network "forwarded_port", guest: 30001, host: 30001
+    controlplane.vm.network "forwarded_port", guest: 30002, host: 30002      
     controlplane.vm.network "forwarded_port", guest: 32000, host: 32000
+
+    ## Openforwarded port toward host machine so host can accesss it 
+    ## Kubernetes control plane allocates a port from a range specified by --service-node-port-range flag (default: 30000-32767).
+    # for i in 30000..32767
+    #  config.vm.network :forwarded_port, guest: i, host: i
+    # end
 
     if settings["shared_folders"]
       settings["shared_folders"].each do |shared_folder|
