@@ -3,3 +3,5 @@
 
 ## Files from auto-generated config
 configs/
+configs/*
+*configs/
