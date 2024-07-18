@@ -1,0 +1,7 @@
+## Files from Vagrant init
+.vagrant/
+
+## Files from auto-generated config
+configs/
+configs/*
+*configs/
