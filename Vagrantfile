@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
   else
     config.vm.box = settings["software"]["box"]
   end
-  config.vm.box_check_update = true
+  config.vm.box_check_update = false
 
   config.vm.define "devnodemaster01" do |controlplane|
     controlplane.vm.hostname = "devnodemaster01"
