@@ -49,6 +49,10 @@ curl https://raw.githubusercontent.com/projectcalico/calico/v${CALICO_VERSION}/m
 
 kubectl apply -f calico.yaml
 
+
+## Stage : Copy Config
+# Variable that needed to be passed = 
+
 sudo -i -u vagrant bash << EOF
 whoami
 mkdir -p /home/vagrant/.kube
