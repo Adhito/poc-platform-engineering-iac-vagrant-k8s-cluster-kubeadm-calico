@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
   else
     config.vm.box = settings["software"]["box"]
   end
-  config.vm.box_check_update = true
+  config.vm.box_check_update = false
 
   config.vm.define "devnodemaster01" do |controlplane|
     controlplane.vm.hostname = "devnodemaster01"
@@ -51,7 +51,7 @@ Vagrant.configure("2") do |config|
       end
     end
     controlplane.vm.provider "virtualbox" do |vb|
-        vb.name = "DEVNODEMASTER01"
+        vb.name = "DEVNODEMASTER01-CALICO-CNI"
         vb.cpus = settings["nodes"]["control"]["cpu"]
         vb.memory = settings["nodes"]["control"]["memory"]
         if settings["cluster_name"] and settings["cluster_name"] != ""
@@ -89,7 +89,7 @@ Vagrant.configure("2") do |config|
         end
       end
       node.vm.provider "virtualbox" do |vb|
-          vb.name = "DEVNODEWORKER0#{i}"
+          vb.name = "DEVNODEWORKER0#{i}-CALICO-CNI"
           vb.cpus = settings["nodes"]["workers"]["cpu"]
           vb.memory = settings["nodes"]["workers"]["memory"]
           if settings["cluster_name"] and settings["cluster_name"] != ""

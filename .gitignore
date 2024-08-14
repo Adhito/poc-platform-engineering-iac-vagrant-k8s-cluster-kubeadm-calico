@@ -6,4 +6,5 @@ configs/
 configs/*
 *configs/
 configs/config
+configs/setup-join.sh
 configs/token
