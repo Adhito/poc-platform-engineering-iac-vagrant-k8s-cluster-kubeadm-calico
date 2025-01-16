@@ -29,12 +29,18 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "devnodemaster01" do |controlplane|
     controlplane.vm.hostname = "devnodemaster01"
+    
+    ## Assign IP From Settings YAML
     controlplane.vm.network "private_network", ip: settings["network"]["control_ip"]
+
+    ## Asign IP From Static Hardcode
+    # controlplane.vm.network "private_network", ip: "192.168.56.10"
+
       
     ## Openforwarded port toward host machine so host can accesss it 
-    ## Port 300001 : Kubernetes Dashboard UI
-    ## Port 300002 : Kubernetes ArgoCD UI
-    ## Port 320000 : Sample NGINX Deployment
+    ## Port 30001 : Kubernetes Dashboard UI
+    ## Port 30002 : Kubernetes ArgoCD UI
+    ## Port 32000 : Sample NGINX Deployment
     controlplane.vm.network "forwarded_port", guest: 30001, host: 30001
     controlplane.vm.network "forwarded_port", guest: 30002, host: 30002      
     controlplane.vm.network "forwarded_port", guest: 32000, host: 32000

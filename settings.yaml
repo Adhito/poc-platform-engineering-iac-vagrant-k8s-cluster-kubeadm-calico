@@ -13,7 +13,8 @@ cluster_name: Development Kubernetes Cluster Kubeadm Calico Vagrant
 
 network:
   # Worker IPs are simply incremented from the control IP.
-  control_ip: 10.0.0.10
+  # control_ip: 10.0.0.10
+  control_ip: 192.168.56.10
   dns_servers:
     - 8.8.8.8
     - 1.1.1.1
@@ -24,7 +25,7 @@ nodes:
     cpu: 4
     memory: 4096
   workers:
-    count: 4
+    count: 2
     cpu: 4
     memory: 4096
 # Mount additional shared folders from the host into each virtual machine.
