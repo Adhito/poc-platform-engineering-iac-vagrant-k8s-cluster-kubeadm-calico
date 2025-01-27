@@ -30,4 +30,18 @@ Refer to this link for vagrant destroy documentation [vagrant destroy](https://d
 ```shell
 vagrant destroy -f
 ```
+## TODO
+### To-Do Backlog
 
+- [ ] Create SVC For ArgoCD WebUI with LoadBalancer Type
+- [ ] Some-task - 01 
+- [ ] Some-task - 02
+  - [ ] Sub-task 01
+
+### To-Do In Progress
+
+- [ ] -
+
+### To-Do Completed ✓
+
+- [x] Create SVC For ArgoCD WebUI with NodePort Type 
