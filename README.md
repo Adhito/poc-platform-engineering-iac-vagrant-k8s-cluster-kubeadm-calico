@@ -28,12 +28,20 @@ Clone the repo and execute the following commands.
     vagrant up
     ```
 
-## To Shutdown The Cluster,
+## Stage : Shutting Down The Cluster,
 Refer to this link for vagrant halt documentation [vagrant halt](https://developer.hashicorp.com/vagrant/docs/cli/halt)
 
-```shell
-vagrant halt
-```
+* **Stop the cluster :**
+
+    ```shell
+    vagrant Halt
+    ```
+
+* **Destroy the cluster: (Optional)**
+
+    ```shell
+    vagrant destroy -f
+    ```
 
 ## To Restart The Cluster,
 Refer to this link for vagrant up documentation [vagrant up](https://developer.hashicorp.com/vagrant/docs/cli/up)
