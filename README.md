@@ -43,19 +43,23 @@ Refer to this link for vagrant halt documentation [vagrant halt](https://develop
     vagrant destroy -f
     ```
 
-## To Restart The Cluster,
-Refer to this link for vagrant up documentation [vagrant up](https://developer.hashicorp.com/vagrant/docs/cli/up)
+## Stage : Restarting The Cluster,
+Refer to this link for vagrant halt documentation [vagrant halt](https://developer.hashicorp.com/vagrant/docs/cli/halt)
 
-```shell
-vagrant up
-```
+* **Stop the cluster :**
 
-## To Destroy The Cluster,
-Refer to this link for vagrant destroy documentation [vagrant destroy](https://developer.hashicorp.com/vagrant/docs/cli/destroy)
+    ```shell
+    vagrant Halt
+    ```
 
-```shell
-vagrant destroy -f
-```
+* **Start the cluster:**
+
+    ```shell
+    vagrant up
+    ```
+
+
+
 ## TODO
 ### To-Do Backlog
 
