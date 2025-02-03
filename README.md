@@ -10,14 +10,23 @@ Provision Kubernetes Cluster (K8S) systematically using Infrastructure as a Code
 
 
 
-## To Provision the Cluster
+## Stage : Provision the Cluster
 Clone the repo and execute the following commands.
 
-```shell
-git clone https://github.com/Adhito/poc-platform-engineering-iac-vagrant-k8s-cluster-kubeadm-calico
-cd project-platform-engineering-iac-vagrant-k8s-cluster
-vagrant up
-```
+1. **Clone the repository:**
+    ```shell
+    git clone https://github.com/Adhito/poc-platform-engineering-iac-vagrant-k8s-cluster-kubeadm-calico
+    ```
+
+2. **Change the directory:**
+    ```shell
+    cd project-platform-engineering-iac-vagrant-k8s-cluster
+    ```
+
+3. **Start the cluster**
+    ```shell
+    vagrant up
+    ```
 
 ## To Shutdown The Cluster,
 Refer to this link for vagrant halt documentation [vagrant halt](https://developer.hashicorp.com/vagrant/docs/cli/halt)
