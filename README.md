@@ -1,6 +1,15 @@
 # Project Platform Engineering IaC Vagrant K8s Cluster
 Provision Kubernetes Cluster (K8S) systematically using Infrastructure as a Code (Vagrant) instead provisioning it manually.
 
+
+## Prerequisites
+* Oracle VirtualBox
+* Hashicorp Vagrant
+* Helmchart
+* Kubectl
+
+
+
 ## To Provision the Cluster
 Clone the repo and execute the following commands.
 
