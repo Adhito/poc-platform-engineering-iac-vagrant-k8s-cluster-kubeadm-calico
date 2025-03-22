@@ -38,8 +38,8 @@ Vagrant.configure("2") do |config|
 
       
     ## Openforwarded port toward host machine so host can accesss it 
-    ## Port 30001 : Kubernetes Dashboard UI
-    ## Port 30002 : Kubernetes ArgoCD UI
+    ## Port 30001 : Kubernetes UI Dashboard
+    ## Port 30002 : Kubernetes UI ArgoCD 
     ## Port 32000 : Sample NGINX Deployment
     controlplane.vm.network "forwarded_port", guest: 30001, host: 30001
     controlplane.vm.network "forwarded_port", guest: 30002, host: 30002      
