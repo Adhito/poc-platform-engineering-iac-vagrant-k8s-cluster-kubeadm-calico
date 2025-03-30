@@ -11,3 +11,4 @@ configs/token
 scripts-kubernetes-ui-argocd/argocd-tls-export.crt
 scripts-kubernetes-ui-argocd/argocd-tls.crt
 scripts-kubernetes-ui-argocd/argocd-tls.key
+configs/config
