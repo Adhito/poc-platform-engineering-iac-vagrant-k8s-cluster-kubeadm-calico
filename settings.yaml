@@ -23,11 +23,11 @@ network:
 nodes:
   control:
     cpu: 4
-    memory: 4096
+    memory: 8192
   workers:
     count: 2
     cpu: 4
-    memory: 4096
+    memory: 8192
 # Mount additional shared folders from the host into each virtual machine.
 # Note that the project directory is automatically mounted at /vagrant.
 # shared_folders:
@@ -39,5 +39,6 @@ software:
   # To skip the dashboard installation, set its version to an empty value or comment it out:
   dashboard: 2.7.0
   kubernetes: 1.29.0-*
+  argocd: 2.14.8
 
   os: xUbuntu_22.04
