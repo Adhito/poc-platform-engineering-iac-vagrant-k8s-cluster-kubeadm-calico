@@ -121,12 +121,12 @@ Vagrant.configure("2") do |config|
         path: "scripts-setup/setup-node-all.sh"
       node.vm.provision "shell", path: "scripts-setup/setup-node-worker.sh"
 
-      ## Stage : Execute K8S Dashboard shell script after provisioning the last worker (and when enabled).
+      ## Stage : Execute Utility K8S Dashboard shell script after provisioning the last worker (and when enabled).
       if i == NUM_WORKER_NODES and settings["software"]["dashboard"] and settings["software"]["dashboard"] != ""
-        node.vm.provision "setup-dashboard", type: "shell", path: "scripts-setup/setup-dashboard.sh"
+        node.vm.provision "setup-dashboard", type: "shell", path: "scripts-setup/setup-infra-utility-dashboard.sh"
       end
 
-      ## Stage : Execute ArgoCD shell script after provisioning the last worker (and when enabled).
+      ## Stage : Execute Utility ArgoCD shell script after provisioning the last worker (and when enabled).
       if i == NUM_WORKER_NODES and settings["software"]["dashboard"] and settings["software"]["dashboard"] != ""
         node.vm.provision "setup-infra-utility-argocd", type: "shell", path: "scripts-setup/setup-infra-utility-argocd.sh"
       end
