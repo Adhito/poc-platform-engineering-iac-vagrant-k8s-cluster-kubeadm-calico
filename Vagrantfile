@@ -51,15 +51,21 @@ Vagrant.configure("2") do |config|
     #  config.vm.network :forwarded_port, guest: i, host: i
     # end
 
+
+    ## Stage : Mount Current Path to /vagrant in all Node-Master & Node-Woker
     if settings["shared_folders"]
       settings["shared_folders"].each do |shared_folder|
         controlplane.vm.synced_folder shared_folder["host_path"], shared_folder["vm_path"]
       end
     end
+
+
+    ## Stage : Provision & Setup Node-Master
     controlplane.vm.provider "virtualbox" do |vb|
         vb.name = "DEVNODEMASTER01-CALICO-CNI"
         vb.cpus = settings["nodes"]["control"]["cpu"]
         vb.memory = settings["nodes"]["control"]["memory"]
+        vb.gui = true
         if settings["cluster_name"] and settings["cluster_name"] != ""
           vb.customize ["modifyvm", :id, "--groups", ("/" + settings["cluster_name"])]
         end
@@ -84,6 +90,7 @@ Vagrant.configure("2") do |config|
   end
 
 
+  ## Stage : Provision & Setup Node-Worker
   (1..NUM_WORKER_NODES).each do |i|
     config.vm.boot_timeout = 600
     config.vm.define "devnodeworker0#{i}" do |node|
@@ -98,6 +105,7 @@ Vagrant.configure("2") do |config|
           vb.name = "DEVNODEWORKER0#{i}-CALICO-CNI"
           vb.cpus = settings["nodes"]["workers"]["cpu"]
           vb.memory = settings["nodes"]["workers"]["memory"]
+          vb.gui = true
           if settings["cluster_name"] and settings["cluster_name"] != ""
             vb.customize ["modifyvm", :id, "--groups", ("/" + settings["cluster_name"])]
           end
@@ -113,10 +121,16 @@ Vagrant.configure("2") do |config|
         path: "scripts-setup/setup-node-all.sh"
       node.vm.provision "shell", path: "scripts-setup/setup-node-worker.sh"
 
-      ## Trigger the dashboard shell script after provisioning the last worker (and when enabled).
+      ## Stage : Execute K8S Dashboard shell script after provisioning the last worker (and when enabled).
       if i == NUM_WORKER_NODES and settings["software"]["dashboard"] and settings["software"]["dashboard"] != ""
-        node.vm.provision "shell", path: "scripts-setup/setup-dashboard.sh"
+        node.vm.provision "setup-dashboard", type: "shell", path: "scripts-setup/setup-dashboard.sh"
       end
+
+      ## Stage : Execute ArgoCD shell script after provisioning the last worker (and when enabled).
+      if i == NUM_WORKER_NODES and settings["software"]["dashboard"] and settings["software"]["dashboard"] != ""
+        node.vm.provision "setup-infra-utility-argocd", type: "shell", path: "scripts-setup/setup-infra-utility-argocd.sh"
+      end
+
     end
 
   end
