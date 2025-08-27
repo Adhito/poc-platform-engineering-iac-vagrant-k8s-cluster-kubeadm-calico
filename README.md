@@ -1,12 +1,17 @@
 # Project Platform Engineering IaC Vagrant K8s Cluster
-Provision Kubernetes Cluster (K8S) systematically using Infrastructure as a Code (Vagrant) instead provisioning it manually.
+Provision Kubernetes Cluster (K8S) systematically using Infrastructure as a Code (Vagrant) instead provisioning it manually. This POC is inspired by Kelsey Hightower ["Kubernetes The Hard Way"](https://github.com/kelseyhightower/kubernetes-the-hard-way) and meant as a sandbox ground to learn K8S
 
 
-## Prerequisites
-* Oracle VirtualBox
-* Hashicorp Vagrant
-* Helmchart
-* Kubectl
+
+
+## Prerequisites Tools Used
+
+| Tool               | Version  | Download Link                                                                 |
+|--------------------|----------|-------------------------------------------------------------------------------|
+| Oracle VirtualBox  | 7.0      | [Download](https://www.virtualbox.org/wiki/Downloads)                         |
+| HashiCorp Vagrant  | 2.4.1    | [Download](https://developer.hashicorp.com/vagrant/downloads)                 |
+| Helm               | Latest   | [Download](https://helm.sh/docs/intro/install/)                               |
+| kubectl            | Latest   | [Download](https://kubernetes.io/docs/tasks/tools/#kubectl)                   |
 
 
 
@@ -70,7 +75,8 @@ Refer to this link for vagrant halt documentation [vagrant halt](https://develop
 
 ### To-Do In Progress
 
-- [ ] -
+- [ ] Some-task - 01 
+- [ ] Some-task - 02
 
 ### To-Do Completed ✓
 
