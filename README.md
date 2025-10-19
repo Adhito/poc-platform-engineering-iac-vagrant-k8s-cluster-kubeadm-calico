@@ -87,6 +87,40 @@ Refer to this link for vagrant halt documentation [vagrant halt](https://develop
 
 
 
+## 📑 K8S Cluster Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     VirtualBox Host Machine                 │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │            Development Kubernetes Cluster            │   │
+│  ├──────────────────────────────────────────────────────┤   │
+│  │                                                      │   │
+│  │  ┌──────────────────┐  ┌─────────────────────────┐   │   │
+│  │  │  Master Node     │  │    Worker Nodes         │   │   │
+│  │  │  192.168.56.10   │  │    192.168.56.11-12     │   │   │
+│  │  │                  │  │                         │   │   │
+│  │  │  - API Server    │  │    - Kubelet            │   │   │
+│  │  │  - Controller    │  │    - CRI-O              │   │   │
+│  │  │  - Scheduler     │  │    - Kube-proxy         │   │   │
+│  │  │  - etcd          │  │    - Calico             │   │   │
+│  │  │  - Calico        │  │                         │   │   │
+│  │  │  - Dashboard     │  └─────────────────────────┘   │   │
+│  │  │  - ArgoCD        │                                │   │
+│  │  │  - Metrics       │                                │   │
+│  │  └──────────────────┘                                │   │
+│  └──────────────────────────────────────────────────────┘   │
+│                                                             │
+│  Exposed Ports:                                             │
+│  - 30001: Kubernetes Dashboard                              │
+│  - 30002: ArgoCD UI                                         │
+│  - 32000: Sample Application                                │
+└─────────────────────────────────────────────────────────────┘
+```
+
+
 ## TODO
 ### To-Do Backlog
 
