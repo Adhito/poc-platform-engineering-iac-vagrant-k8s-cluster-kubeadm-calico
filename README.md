@@ -33,6 +33,28 @@ Clone the repo and execute the following commands.
     vagrant up
     ```
 
+
+### Stage : Verify the Installation (Optional)
+
+After provisioning completes, verify the cluster status:
+
+```shell
+# Copy kubeconfig from the generated configs directory
+cp configs/config ~/.kube/config
+
+# Check cluster nodes
+kubectl get nodes
+
+# Expected output:
+# NAME               STATUS   ROLE           AGE   VERSION
+# devnodemaster01    Ready    control-plane  5m    v1.29.0
+# devnodeworker01    Ready    worker         4m    v1.29.0
+# devnodeworker02    Ready    worker         3m    v1.29.0
+
+# Check all pods
+kubectl get pods -A
+```
+
 ## Stage : Shutting Down The Cluster,
 Refer to this link for vagrant halt documentation [vagrant halt](https://developer.hashicorp.com/vagrant/docs/cli/halt)
 
